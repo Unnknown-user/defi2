@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+<body>
+    
+    <br />
+    <br />
+
+<div class="container">
+<div class="row">
+        <div class="col-6">
+        <h2>Decimal </h2>
+        <input type="text" id="decimal" class="inputs"  placeholder="Entrez un nombre"><button type="button" id="btn" class="btn-primary" onClick="xdecimal();"> Convert to Hex</button>
+        <br> <br />
+    </div>
+
+        <div class="col-6">
+
+        <h2>Hexadecimal</h2>
+        <input type="text" id="hexa" class="inputs2" placeholder="Entrez un hexadecimal"><button type="button" id="btn2" class="btn-primary" onClick="xhexadecimal()">Convert to decimal</button>
+        
+        
+        <br />
+        </div>
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="card mx-auto mt-5 d-none" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"></h5> 
+      <h6 class="card-subtitle">Number facts:</h6>
+      <p class="card-text"></p>
+    </div>
+
+</div>
+
+<script>
+    function xhexadecimal()
+{
+    decimal = document.getElementById("decimal");
+    hexadecimal = document.getElementById("hexa");
+ 
+    decimal.value = parseInt(hexadecimal.value,16);
+}
+
+function xdecimal()
+{
+    decimal = document.getElementById("decimal");
+    hexadecimal = document.getElementById("hexa");
+ 
+    hexadecimal.value = (decimal.value-0).toString(16);
+}
+ 
+
+
+
+</script>
+
+<script src="/numbers.js"></script>
+
+
+<script>
+    let enter_btn = document.getElementById('btn')
+let enter_btn2 = document.getElementById("btn2");
+
+let card = document.querySelector('.card')
+enter_btn.addEventListener("click", getFacts);
+enter_btn2.addEventListener("click", getFacts);
+
+function getFacts () {
+    let inputs = document.querySelector(".inputs").value;
+    let inputs2 = document.querySelector(".inputs2").value;
+    let card_title = document.querySelector('.card-title');
+    let card_text = document.querySelector('.card-text');
+
+   if(inputs !== "") {
+    card.classList.remove("d-none");
+
+    fetch(`http://numbersapi.com/${inputs}`).then(response => response.text())
+    .then((data) => {
+        card_title.innerHTML = inputs;
+        card_text.innerHTML = data;
+    })
+    .catch((error) => console.log(error))
+   } else if(inputs2 !== "") {
+    card.classList.remove("d-none");
+
+    fetch(`http://numbersapi.com/${inputs2}`).then(response => response.text())
+    .then((data) => {
+        card_title.innerHTML = inputs2;
+        card_text.innerHTML = data;
+    })
+    .catch((error) => console.log(error))
+} 
+
+}
+</script>
+</body>
+</html>
